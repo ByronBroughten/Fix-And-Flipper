@@ -1,11 +1,11 @@
-import { all } from 'redux-saga/effects';
-import loginSaga from './login.saga';
-import registrationSaga from './registration.saga';
-import userSaga from './user.saga';
-import propertiesSaga from './properties.saga';
-import propertyHoldingItemsSaga from './propertyHoldingItems.saga';
-import propertyRepairItemsSaga from './propertyRepairItems.saga';
-import defaultSettingsSaga from './defaultSettings.saga';
+import { all } from "redux-saga/effects";
+import defaultSettingsSaga from "./defaultSettings.saga";
+import loginSaga from "./login.saga";
+import propertiesSaga from "./properties.saga";
+import propertyHoldingItemsSaga from "./propertyHoldingItems.saga";
+import propertyRepairItemsSaga from "./PropertyRepairItems.saga";
+import registrationSaga from "./registration.saga";
+import userSaga from "./user.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
