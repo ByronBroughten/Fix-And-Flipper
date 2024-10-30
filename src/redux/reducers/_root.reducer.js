@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
-import errors from './errors.reducer';
-import user from './user.reducer';
-import allProperties from './AllProperties.reducer';
-import defaultSettings from './defaultSettings.reducer';
-import propertyOfInterest from './propertyOfInterest.reducer';
+import { combineReducers } from "redux";
+import allProperties from "./allProperties.reducer";
+import defaultSettings from "./defaultSettings.reducer";
+import errors from "./errors.reducer";
+import propertyOfInterest from "./propertyOfInterest.reducer";
+import user from "./user.reducer";
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
