@@ -5,6 +5,10 @@ const PORT = process.env.PORT || 5001;
 const NODE_ENV = process.env.NODE_ENV || "development";
 
 // Middleware Includes
+
+const initDb = require("./db/initDb");
+initDb();
+
 const sessionMiddleware = require("./modules/session-middleware");
 const passport = require("./strategies/user.strategy");
 

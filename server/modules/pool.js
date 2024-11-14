@@ -13,18 +13,23 @@ let pool;
 // to set the connection info: web address, username/password, db name
 // eg:
 //  DATABASE_URL=postgresql://jDoe354:secretPw123@some.db.com/prime_app
-if (process.env.DATABASE_URL) {
-  pool = new pg.Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false,
-    },
-  });
-}
-// When we're running this app on our own computer
-// we'll connect to the postgres database that is
-// also running on our computer (localhost)
-else {
+
+if (process.env.NODE_ENV === "production") {
+  const databaseUrl = process.env.DATABASE_URL;
+  if (!databaseUrl) {
+    throw new Error("There is no database url");
+  } else {
+    pool = new pg.Pool({
+      connectionString: databaseUrl,
+      ssl: {
+        rejectUnauthorized: false,
+      },
+    });
+  }
+} else {
+  // When we're running this app on our own computer
+  // we'll connect to the postgres database that is
+  // also running on our computer (localhost)
   pool = new pg.Pool({
     host: "localhost",
     port: 5432,
