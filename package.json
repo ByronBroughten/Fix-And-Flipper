@@ -17,6 +17,7 @@
     "bcryptjs": "^2.4.3",
     "connect-pg-simple": "^9.0.1",
     "dotenv": "^16.0.3",
+    "drizzle-kit": "^0.28.0",
     "drizzle-orm": "^0.36.1",
     "express": "^4.17.1",
     "express-session": "^1.18.0",
@@ -46,7 +47,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.2.1",
-    "drizzle-kit": "^0.28.0",
     "nodemon": "^3.1.7",
     "vitest": "^1.6.0"
   },
