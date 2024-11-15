@@ -41,9 +41,9 @@ const user = pgTable("user", {
   holding_period_default: integer().default(6),
 });
 
-function referencesUser() {
+function childReferencesUser() {
   return integer()
-    .references(() => user.id)
+    .references(() => user.id, { onDelete: "cascade" })
     .notNull();
 }
 
@@ -63,13 +63,13 @@ const property_api_data = pgTable("property_api_data", {
 
 function referencesPropertyApi() {
   return integer()
-    .references(() => property_api_data.id)
+    .references(() => property_api_data.id, { onDelete: "restrict" })
     .notNull();
 }
 
 const properties = pgTable("properties", {
   id: serialPrimary(),
-  user_id: referencesUser(),
+  user_id: childReferencesUser(),
   property_api_id: referencesPropertyApi(),
   address: varChar(1000).notNull(),
   ...insertedUpdated(),
@@ -87,45 +87,45 @@ const properties = pgTable("properties", {
   is_archived: boolean().default(false),
 });
 
-function referencesProperty(onDeleteCascade = false) {
+function childReferencesProperty() {
   return integer()
     .references(() => properties.id, {
-      onDelete: onDeleteCascade ? "cascade" : "no action",
+      onDelete: "cascade",
     })
     .notNull();
 }
 
 const default_holdings = pgTable("default_holdings", {
   id: serialPrimary(),
-  user_id: referencesUser(),
+  user_id: childReferencesUser(),
   holding_name: varChar(1000),
   holding_cost: decimal(),
 });
 
 const default_repairs = pgTable("default_repairs", {
   id: serialPrimary(),
-  user_id: referencesUser(),
+  user_id: childReferencesUser(),
   repair_name: varChar(1000),
   repair_cost: decimal(),
 });
 
 const holding_items = pgTable("holding_items", {
   id: serialPrimary(),
-  property_id: referencesProperty(),
+  property_id: childReferencesProperty(),
   name: varChar(1000),
   cost: decimal(),
 });
 
 const repair_items = pgTable("repair_items", {
   id: serialPrimary(),
-  property_id: referencesProperty(true),
+  property_id: childReferencesProperty(),
   name: varChar(1000),
   cost: decimal(),
 });
 
 const default_mortgage_calculations = pgTable("default_mortgage_calculations", {
   id: serialPrimary(),
-  property_id: referencesProperty(true),
+  property_id: childReferencesProperty(),
   interest_rate: dec(15, 3),
   interest_rate_inserted_at: timeDefault(),
   interest_rate_updated_at: timeDefault(),
@@ -138,7 +138,7 @@ const default_mortgage_calculations = pgTable("default_mortgage_calculations", {
 
 const mortgage_calculations = pgTable("mortgage_calculations", {
   id: serialPrimary(),
-  property_id: referencesProperty(true),
+  property_id: childReferencesProperty(),
   interest_rate: dec(15, 3),
   interest_rate_api_inserted_at: timeDefault(),
   interest_rate_api_updated_at: timeDefault(),
